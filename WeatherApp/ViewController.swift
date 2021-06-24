@@ -7,11 +7,12 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, ForecastViewModelDelegate {
     private let viewModel = ForecastViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.delegate = self 
         viewModel.requestForecastModel()
         // Do any additional setup after loading the view.
     }
