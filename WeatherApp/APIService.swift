@@ -78,7 +78,10 @@ class APIService {
             let cityModel = ForecastCityDataModel(name: name!)
             responseModel = ForecastResponseModel(cod: code!, message: messsage!, cnt: cnt!, forecastList: forecastModels, city: cityModel)
             
-            callBack(responseModel, nil)
+            DispatchQueue.main.async {
+                callBack(responseModel, nil)
+            }
+            
             
             //            print(data)
             //            print(response)

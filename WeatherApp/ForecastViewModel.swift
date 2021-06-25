@@ -14,11 +14,17 @@ protocol ForecastViewModelDelegate {
 
 struct ForecastDailyModel {
     var listForecastData: [ForecastDataModel] = []
+    var listForecastDate: Date = Date()
+    
+    func getDay() -> String {
+        return listForecastDate.dayOfTheWeek()
+    }
 }
+
 
 class ForecastViewModel {
     private let apiService = APIService()
-    private var dailyArray: [ForecastDailyModel] = []
+    private(set) var dailyArray: [ForecastDailyModel] = []
     var delegate: ForecastViewModelDelegate?
    
     public func requestForecastModel() {
@@ -31,6 +37,7 @@ class ForecastViewModel {
     
     private func createForecastDailyModels(from dataModels: [ForecastDataModel]) -> [ForecastDailyModel] {
         var dctForecast: [String: [ForecastDataModel]] = [:]
+        var dctDate: [String: Date] = [:]
         
         let calendar = Calendar.current
         dataModels.forEach { (dataModel) in
@@ -47,11 +54,14 @@ class ForecastViewModel {
                 var arr: [ForecastDataModel] = []
                 arr.append(dataModel)
                 dctForecast[identifier] = arr
+                dctDate[identifier] = dataModel.date
             }
         }
         
         let arrDailyModels: [ForecastDailyModel] = dctForecast.map { (key,value)  in
-            return ForecastDailyModel(listForecastData: value)
+            return ForecastDailyModel(listForecastData: value, listForecastDate: dctDate[key]!)
+        }.sorted { (modelA, modelB) -> Bool in
+            return modelA.listForecastDate < modelB.listForecastDate
         }
         
         return arrDailyModels
