@@ -12,23 +12,15 @@ protocol ForecastViewModelDelegate {
     func forecastViewModelDidGetData()
 }
 
-struct ForecastDailyModel {
-    var listForecastData: [ForecastDataModel] = []
-    var listForecastDate: Date = Date()
-    
-    func getDay() -> String {
-        return listForecastDate.dayOfTheWeek()
-    }
-}
-
-
 class ForecastViewModel {
     private let apiService = APIService()
+    private(set) var responseModel: ForecastResponseModel!
     private(set) var dailyArray: [ForecastDailyModel] = []
     var delegate: ForecastViewModelDelegate?
    
     public func requestForecastModel() {
         apiService.request { (response, error) in
+            self.responseModel = response!
             self.dailyArray = self.createForecastDailyModels(from: response!.forecastList)
             guard let delegate = self.delegate else { return }
             delegate.forecastViewModelDidGetData()
