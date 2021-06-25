@@ -37,7 +37,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DailyDataTableViewCell", for: indexPath) as! DailyDataTableViewCell
         cell.update(with: viewModel.dailyArray[indexPath.row])
-        print("index: \(indexPath.row)")
+       
         return cell
     }
     
@@ -50,7 +50,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
 //MARK: -ViewModelDelegate
 extension ViewController: ForecastViewModelDelegate {
     func forecastViewModelDidGetData() {
-        print(viewModel.dailyArray)
+     
         self.table.reloadData()
         self.navigationItem.title = viewModel.responseModel.city.name
     }
