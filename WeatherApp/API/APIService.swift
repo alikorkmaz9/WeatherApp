@@ -7,24 +7,7 @@
 
 import Foundation
 
-struct ForecastResponseModel {
-    let cod: String
-    let message: Int
-    let cnt: Int
-    let forecastList: [ForecastDataModel]
-    let city: ForecastCityDataModel
-}
 
-struct ForecastDataModel {
-    var date: Date
-    var temp: Double
-    var id: Int
-    var main: String
-}
-
-struct ForecastCityDataModel {
-    var name: String
-}
 
 enum ForecastService {
     case izmirWeather
@@ -33,7 +16,9 @@ enum ForecastService {
 class APIService {
     
     func request(callBack: @escaping (ForecastResponseModel?, Error?) -> ()) {
-        let urlString = "https://api.openweathermap.org/data/2.5/forecast?q=izmir&APPID=bbcf57969e78d1300a815765b7d587f0&units=metric"
+        // 38.336753, 26.648695  38.672688, 26.422278
+        let urlString = "https://api.openweathermap.org/data/2.5/forecast?lat=38.672688&lon=26.422278&appid=bbcf57969e78d1300a815765b7d587f0&units=metric"
+       // let urlString = "https://api.openweathermap.org/data/2.5/forecast?q=izmir&APPID=bbcf57969e78d1300a815765b7d587f0&units=metric"
         let url = URL(string: urlString)
         
         let request = URLRequest(url: url!, cachePolicy: URLRequest.CachePolicy.reloadIgnoringCacheData, timeoutInterval: 10)
@@ -66,7 +51,7 @@ class APIService {
                     let dt = jsonForecast["dt"].double
                     let date = Date(timeIntervalSince1970: dt!)
                     let temp = jsonForecast["main"]["temp"].double
-                    let id = jsonForecast["weather"][0]["id"].int
+                    let id = jsonForecast["weather"][0]["icon"].string
                     let main = jsonForecast["weather"][0]["main"].string
                     let dataModel = ForecastDataModel(date: date, temp: temp!, id: id!, main: main!)
                     return dataModel
