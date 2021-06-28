@@ -8,17 +8,18 @@
 import Foundation
 
 
-
 enum ForecastService {
     case izmirWeather
+    case bursaWeather
+    case adanaWeather
 }
 
 class APIService {
+    var city = ""
     
     func request(callBack: @escaping (ForecastResponseModel?, Error?) -> ()) {
-        // 38.336753, 26.648695  38.672688, 26.422278
-        let urlString = "https://api.openweathermap.org/data/2.5/forecast?lat=38.672688&lon=26.422278&appid=bbcf57969e78d1300a815765b7d587f0&units=metric"
-       // let urlString = "https://api.openweathermap.org/data/2.5/forecast?q=izmir&APPID=bbcf57969e78d1300a815765b7d587f0&units=metric"
+        //let urlString = "https://api.openweathermap.org/data/2.5/forecast?lat=38.672688&lon=26.422278&appid=bbcf57969e78d1300a815765b7d587f0&units=metric"
+       let urlString = "https://api.openweathermap.org/data/2.5/forecast?q=\(city)&APPID=bbcf57969e78d1300a815765b7d587f0&units=metric"
         let url = URL(string: urlString)
         
         let request = URLRequest(url: url!, cachePolicy: URLRequest.CachePolicy.reloadIgnoringCacheData, timeoutInterval: 10)
