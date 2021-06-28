@@ -58,9 +58,9 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("aaa")
         let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ViewController") as! ViewController
         self.navigationController?.pushViewController(viewController, animated: true)
-        print("aaa")
         viewController.city = cityArray[indexPath.row]
     }
 }

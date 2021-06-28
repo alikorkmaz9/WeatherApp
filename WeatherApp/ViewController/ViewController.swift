@@ -7,28 +7,17 @@
 
 import UIKit
 
-class ViewController: UIViewController, UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        guard let text = searchController.searchBar.text else {
-            return
-        }
-        print(text)
-    }
-    
+class ViewController: UIViewController {
+
     var city: String = ""
     
     @IBOutlet weak var table: UITableView!
     
     private let viewModel = ForecastViewModel()
     
-    let searchController = UISearchController()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationItem.searchController = searchController
-        searchController.searchResultsUpdater = self
             
         self.view.backgroundColor = #colorLiteral(red: 0.9019607843, green: 0.9019607843, blue: 0.9019607843, alpha: 1)
         table.register(DailyDataTableViewCell.nib(), forCellReuseIdentifier: DailyDataTableViewCell.identifier)
@@ -36,12 +25,13 @@ class ViewController: UIViewController, UISearchResultsUpdating {
         table.delegate = self
         print(city)
         
-        
         viewModel.delegate = self 
         viewModel.requestForecastModel()
+        view.isUserInteractionEnabled = true
         
         // Do any additional setup after loading the view.
     }
+    
 
 }
 
@@ -60,6 +50,11 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 192
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MapViewController") as! MapViewController
+        self.navigationController?.pushViewController(viewController, animated: true)
+    }
 }
 
 
@@ -68,7 +63,7 @@ extension ViewController: ForecastViewModelDelegate {
     func forecastViewModelDidGetData() {
      
         self.table.reloadData()
-        self.navigationItem.title = "İzmir"
+        self.navigationItem.title = city
     }
 }
 
