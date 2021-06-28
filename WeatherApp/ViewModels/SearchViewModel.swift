@@ -27,7 +27,7 @@ class SearchViewModel {
 // MARK: - Public
 extension SearchViewModel {
     func initialize() {
-        cityArray = ["İzmir", "Adana", "İstanbul", "Hatay", "Mersin", "Antep", "Ankara", "Bursa", "Trabzon"]
+        cityArray = ["izmir", "Adana", "istanbul", "Hatay", "Mersin", "Antep", "Ankara", "Bursa", "Trabzon"]
         filterCities()
     }
     

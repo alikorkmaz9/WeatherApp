@@ -14,8 +14,7 @@ class ForecastViewController: UIViewController {
     @IBOutlet weak var table: UITableView!
     
     private let viewModel = ForecastViewModel()
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
             
@@ -23,7 +22,7 @@ class ForecastViewController: UIViewController {
         table.register(DailyDataTableViewCell.nib(), forCellReuseIdentifier: DailyDataTableViewCell.identifier)
         table.dataSource = self
         table.delegate = self
-        print(city)
+        viewModel.configure(with: self.city)
         
         viewModel.delegate = self 
         viewModel.requestForecastModel()
