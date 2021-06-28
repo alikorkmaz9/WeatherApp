@@ -17,9 +17,15 @@ class ForecastViewModel {
     private(set) var responseModel: ForecastResponseModel!
     private(set) var dailyArray: [ForecastDailyModel] = []
     var delegate: ForecastViewModelDelegate?
+    private var city: String = ""
    
+    func configure(with city: String ) {
+        self.city = city
+    }
+    
     public func requestForecastModel() {
-        apiService.request { (response, error) in
+        let service = ForecastService.cityWeather(self.city)
+        apiService.request(service: service) { (response, error) in
             self.responseModel = response!
             self.dailyArray = self.createForecastDailyModels(from: response!.forecastList)
             guard let delegate = self.delegate else { return }
