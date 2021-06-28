@@ -7,11 +7,10 @@
 
 import UIKit
 
-class DailyDataTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-   
+class DailyDataTableViewCell: UITableViewCell {
     
-    @IBOutlet var dayLabel: UILabel!
-    @IBOutlet var forecastCollectionView: UICollectionView!
+    @IBOutlet weak var dayLabel: UILabel!
+    @IBOutlet weak var forecastCollectionView: UICollectionView!
     private var dailyModel: ForecastDailyModel!
     
     static let identifier = "DailyDataTableViewCell"
@@ -33,11 +32,14 @@ class DailyDataTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColle
         self.forecastCollectionView.delegate = self
         self.forecastCollectionView.dataSource = self
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    
+}
+
+//MARK: -DailyDataCollectionView
+extension DailyDataTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.dailyModel.listForecastData.count
     }
@@ -52,5 +54,6 @@ class DailyDataTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColle
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 140, height: 140)
     }
+    
     
 }

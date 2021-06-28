@@ -9,9 +9,9 @@ import UIKit
 import Kingfisher
 
 class DailyForecastCell: UICollectionViewCell {
-    @IBOutlet var timeLabel: UILabel!
-    @IBOutlet var image: UIImageView!
-    @IBOutlet var tempLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var image: UIImageView!
+    @IBOutlet weak var tempLabel: UILabel!
     
     static let identifier = "DailyForecastCell"
     
@@ -24,17 +24,9 @@ class DailyForecastCell: UICollectionViewCell {
         // Initialization code
     }
     
-    /**
-     if let dummy = icon.weather?[0].icon {
-
-                                      let baseUrl = "http://openweathermap.org/img/w/"
-
-                                      forecastDataSource.imageUrl.append(URL(string: baseUrl + dummy + ".png")!)
-     */
-    
     func update(with model: ForecastDataModel) {
         timeLabel.text = model.date.hourOfTheDay()
-        tempLabel.text = "\(model.temp)"
+        tempLabel.text = "\(model.temp)°"
         let baseUrl = "http://openweathermap.org/img/w/"
         let imageUrl = baseUrl + "\(model.id).png"
         image.kf.setImage(with: URL(string: imageUrl)!)

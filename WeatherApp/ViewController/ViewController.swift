@@ -8,23 +8,30 @@
 import UIKit
 
 class ViewController: UIViewController {
-    @IBOutlet var table: UITableView!
+
+    var city: String = ""
+    
+    @IBOutlet weak var table: UITableView!
     
     private let viewModel = ForecastViewModel()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+            
         self.view.backgroundColor = #colorLiteral(red: 0.9019607843, green: 0.9019607843, blue: 0.9019607843, alpha: 1)
         table.register(DailyDataTableViewCell.nib(), forCellReuseIdentifier: DailyDataTableViewCell.identifier)
         table.dataSource = self
         table.delegate = self
+        print(city)
         
         viewModel.delegate = self 
         viewModel.requestForecastModel()
+        view.isUserInteractionEnabled = true
+        
         // Do any additional setup after loading the view.
     }
+    
 
 }
 
@@ -37,12 +44,16 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DailyDataTableViewCell", for: indexPath) as! DailyDataTableViewCell
         cell.update(with: viewModel.dailyArray[indexPath.row])
-       
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 192
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MapViewController") as! MapViewController
+        self.navigationController?.pushViewController(viewController, animated: true)
     }
 }
 
@@ -52,7 +63,7 @@ extension ViewController: ForecastViewModelDelegate {
     func forecastViewModelDidGetData() {
      
         self.table.reloadData()
-        self.navigationItem.title = viewModel.responseModel.city.name
+        self.navigationItem.title = city
     }
 }
 
