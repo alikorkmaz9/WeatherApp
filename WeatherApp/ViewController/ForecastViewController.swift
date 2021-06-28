@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ForecastViewController: UIViewController {
 
     var city: String = ""
     
@@ -36,7 +36,7 @@ class ViewController: UIViewController {
 }
 
 //MARK: -TableView
-extension ViewController: UITableViewDataSource, UITableViewDelegate {
+extension ForecastViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.dailyArray.count
     }
@@ -59,7 +59,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
 
 
 //MARK: -ViewModelDelegate
-extension ViewController: ForecastViewModelDelegate {
+extension ForecastViewController: ForecastViewModelDelegate {
     func forecastViewModelDidGetData() {
      
         self.table.reloadData()
