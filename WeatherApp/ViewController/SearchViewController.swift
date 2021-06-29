@@ -71,8 +71,6 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("aaa")
-        
         let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ForecastViewController") as! ForecastViewController
         viewController.city = viewModel.filteredCityArray[indexPath.row]
         self.navigationController?.pushViewController(viewController, animated: true)
@@ -85,6 +83,5 @@ extension SearchViewController: UISearchBarDelegate, UISearchResultsUpdating {
         guard let searchText = searchController.searchBar.text else { return }
         viewModel.updateCities(with: searchText)
     }
-    
     
 }

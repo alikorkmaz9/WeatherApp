@@ -24,4 +24,6 @@ struct ForecastDataModel {
 
 struct ForecastCityDataModel {
     var name: String
+    var lat: Double
+    var lon: Double
 }

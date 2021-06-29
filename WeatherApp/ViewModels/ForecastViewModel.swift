@@ -19,7 +19,8 @@ class ForecastViewModel {
     var delegate: ForecastViewModelDelegate?
     private var city: String = ""
    
-    func configure(with city: String ) {
+    func configure(with city: String) {
+        print(city)
         self.city = city
     }
     

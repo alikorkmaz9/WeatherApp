@@ -21,13 +21,12 @@ class SearchViewModel {
     init(delegate: SearchViewModelDelegate) {
         self.delegate = delegate
     }
-    
 }
 
 // MARK: - Public
 extension SearchViewModel {
     func initialize() {
-        cityArray = ["izmir", "Adana", "istanbul", "Hatay", "Mersin", "Antep", "Ankara", "Bursa", "Trabzon"]
+        cityArray = ["izmir", "Adana", "istanbul", "Hatay", "Mersin", "Gaziantep", "Ankara", "Bursa", "Trabzon"]
         filterCities()
     }
     

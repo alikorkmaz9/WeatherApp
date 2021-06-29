@@ -62,11 +62,12 @@ class APIService {
                     let dataModel = ForecastDataModel(date: date, temp: temp!, id: id!, main: main!)
                     return dataModel
                 }
-                
             }
             let cityJson = json["city"]
             let name = cityJson["name"].string
-            let cityModel = ForecastCityDataModel(name: name!)
+            let lat = cityJson["coord"]["lat"].double
+            let lon = cityJson["coord"]["lon"].double
+            let cityModel = ForecastCityDataModel(name: name!, lat: lat!, lon: lon!)
             responseModel = ForecastResponseModel(cod: code!, message: messsage!, cnt: cnt!, forecastList: forecastModels, city: cityModel)
             
             DispatchQueue.main.async {

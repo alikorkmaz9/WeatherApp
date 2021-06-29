@@ -31,7 +31,6 @@ class ForecastViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-
 }
 
 //MARK: -TableView
@@ -51,8 +50,8 @@ extension ForecastViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MapViewController") as! MapViewController
-        self.navigationController?.pushViewController(viewController, animated: true)
+//        let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MapViewController") as! MapViewController
+//        self.navigationController?.present(viewController, animated: true, completion: nil)
     }
 }
 
